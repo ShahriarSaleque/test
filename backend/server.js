@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv'; 
 import router from "./routes/userRoutes.js";
+import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 dotenv.config(); 
 
@@ -14,6 +15,10 @@ app.use('/api/users', router);
 app.get('/', (req, res) => {
     res.send('GET route')
 })
+
+// Middleware
+app.use(notFound);
+app.use(errorHandler);
 
 // **POST /api/users** - Register a user
 // **POST /api/users/auth** Authenticate a user and get token
